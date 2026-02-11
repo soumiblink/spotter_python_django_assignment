@@ -1,0 +1,7 @@
+
+Django>=5.0
+djangorestframework
+requests
+pandas
+geopy
+python-dotenv

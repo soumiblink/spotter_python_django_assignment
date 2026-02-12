@@ -1,8 +1,4 @@
-Perfect — I’ll give you a **clean, professional, submission-ready README** tailored to your project.
 
-You can copy-paste this directly into `README.md` in your GitHub repo.
-
----
 
 # 🚗 Fuel Route Optimizer API
 

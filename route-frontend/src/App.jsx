@@ -16,31 +16,45 @@ export default function App() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/optimize-route/",
-        {
-          start_coords: [77.5946, 12.9716],
-          end_coords: [72.8777, 19.076],
-          mpg: 15,
-          tank_size: 50,
-        }
-      );
-      console.log("SUCCESS RESPONSE:", response);
-      console.log("DATA:", response.data);
-      setResult(response.data);
-    } catch (error) {
-      console.log("ERROR OBJECT:", error);
-      console.log("ERROR RESPONSE:", error.response);
-      console.log("ERROR DATA:", error.response?.data);
-      setError("Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError("");
+  setResult(null);
+
+  try {
+    // Convert "lng,lat" string → [lng, lat]
+    const startCoords = form.start.split(",").map((val) => Number(val.trim()));
+    const endCoords = form.end.split(",").map((val) => Number(val.trim()));
+
+    const response = await axios.post(
+      "http://127.0.0.1:8000/api/optimize-route/",
+      {
+        start_coords: startCoords,
+        end_coords: endCoords,
+        mpg: Number(form.mpg),
+        tank_size: Number(form.tank_size),
+      }
+    );
+
+    console.log("SENDING:", {
+      start_coords: startCoords,
+      end_coords: endCoords,
+      mpg: Number(form.mpg),
+      tank_size: Number(form.tank_size),
+    });
+
+    setResult(response.data);
+  } catch (error) {
+    console.log("ERROR OBJECT:", error);
+    console.log("ERROR RESPONSE:", error.response);
+    console.log("ERROR DATA:", error.response?.data);
+    setError("Something went wrong.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div style={styles.container}>

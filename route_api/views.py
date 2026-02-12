@@ -2,6 +2,7 @@ import os
 import hashlib
 import polyline
 
+from django.conf import settings
 from django.core.cache import cache
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -23,7 +24,6 @@ class RouteOptimizationView(APIView):
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
-            # Safe cache key
             cache_key = hashlib.md5(f"{start}_{end}".encode()).hexdigest()
             cached = cache.get(cache_key)
             if cached:
@@ -39,7 +39,6 @@ class RouteOptimizationView(APIView):
             routing = RoutingService(api_key)
             route_data = routing.get_route(start, end)
 
-            # ✅ Check correct ORS response format
             if not route_data or "routes" not in route_data:
                 return Response(
                     {
@@ -54,15 +53,19 @@ class RouteOptimizationView(APIView):
             distance_meters = route["summary"]["distance"]
             distance_miles = distance_meters * 0.000621371
 
-            # ✅ Decode polyline geometry
             encoded_geometry = route["geometry"]
             decoded_coordinates = polyline.decode(encoded_geometry)
 
-            # polyline gives (lat, lon)
-            # Convert to (lon, lat) to match your FuelOptimizer
+            # Convert (lat, lon) → (lon, lat)
             coordinates = [(lon, lat) for lat, lon in decoded_coordinates]
 
-            optimizer = FuelOptimizer("data/fuel-prices-for-be-assessment.csv")
+            csv_path = os.path.join(
+                settings.BASE_DIR,
+                "data",
+                "fuel-prices-for-be-assessment.csv"
+            )
+
+            optimizer = FuelOptimizer(csv_path)
             stops, total_cost, gallons = optimizer.find_stops(
                 coordinates,
                 distance_miles

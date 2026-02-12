@@ -8,16 +8,21 @@ This project integrates with the **OpenRouteService API** and uses fuel price da
 
 ---
 
-## 📌 Features
+✨ Features
 
-* ✅ Calculate driving route between two coordinates
-* ✅ Decode route geometry (polyline)
-* ✅ Estimate total distance in miles
-* ✅ Calculate fuel required (based on MPG)
-* ✅ Estimate fuel cost
-* ✅ Return fuel stop suggestions
-* ✅ Response caching for improved performance
-* ✅ REST API built with Django & Django REST Framework
+📍 Route fetching using OpenRouteService API
+
+🗺 Geometry decoding for route distance calculation
+
+⛽ Fuel consumption estimation based on MPG
+
+🛑 Optimized fuel stop calculation
+
+💰 Total fuel cost estimation
+
+⚡ Clean, modern UI
+
+🔄 Full frontend-backend integration
 
 ---
 
@@ -29,8 +34,47 @@ This project integrates with the **OpenRouteService API** and uses fuel price da
 * OpenRouteService API
 * Polyline decoding
 * CSV-based fuel price dataset
+* React (Vite)
 
 ---
+
+🧠 How It Works
+
+User enters:
+
+Start coordinates (longitude, latitude)
+
+End coordinates (longitude, latitude)
+
+Vehicle MPG
+
+Tank size
+
+Backend:
+
+Fetches route from ORS
+
+Calculates total distance
+
+Estimates total gallons required
+
+Computes fuel stops based on tank size
+
+Returns trip summary
+
+Frontend:
+
+Displays optimized trip summary
+
+Shows total distance
+
+Shows fuel consumption
+
+Shows total cost
+
+Shows number of required stops
+
+
 
 # ⚙️ Setup Instructions
 
@@ -85,6 +129,8 @@ DEBUG=True
 ORS_API_KEY=your_openrouteservice_api_key
 ALLOWED_HOSTS=127.0.0.1,localhost
 ```
+
+
 
 ### 🔑 Get OpenRouteService API Key:
 

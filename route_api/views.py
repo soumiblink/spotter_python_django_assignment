@@ -33,9 +33,9 @@ class RouteOptimizationView(APIView):
 
     def post(self, request):
         try:
-            # ------------------------------
+          
             # Serializer Validation
-            # ------------------------------
+           
             serializer = RouteOptimizationSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
 
@@ -46,9 +46,9 @@ class RouteOptimizationView(APIView):
             mpg = validated_data["mpg"]
             tank_size = validated_data["tank_size"]
 
-            # ------------------------------
+          
             # Caching
-            # ------------------------------
+          
             cache_key_raw = f"{start}_{end}_{mpg}_{tank_size}"
             cache_key = hashlib.md5(cache_key_raw.encode()).hexdigest()
 
@@ -56,9 +56,9 @@ class RouteOptimizationView(APIView):
             if cached_response:
                 return Response(cached_response)
 
-            # ------------------------------
+           
             # ORS API Key Check
-            # ------------------------------
+           
             api_key = os.getenv("ORS_API_KEY")
             if not api_key:
                 return Response(
@@ -80,27 +80,29 @@ class RouteOptimizationView(APIView):
 
             route = route_data["routes"][0]
 
-            # ------------------------------
+            
             # Distance Calculation
-            # ------------------------------
+            
             distance_meters = route["summary"]["distance"]
             distance_miles = distance_meters * 0.000621371
 
-            # ------------------------------
+            
             # Decode Polyline
-            # ------------------------------
+            
             encoded_geometry = route["geometry"]
             decoded_coordinates = polyline.decode(encoded_geometry)
 
+
             # polyline returns (lat, lon)
             # convert to (lon, lat)
+
             route_coordinates = [
                 (lon, lat) for lat, lon in decoded_coordinates
             ]
 
-            # ------------------------------
+           
             # Fuel Optimization
-            # ------------------------------
+            
             csv_path = os.path.join(
                 settings.BASE_DIR,
                 "data",

@@ -15,8 +15,8 @@ class RoutingService:
 
         body = {
             "coordinates": [
-                start,   # already list
-                end      # already list
+                start,   
+                end      
             ]
         }
 

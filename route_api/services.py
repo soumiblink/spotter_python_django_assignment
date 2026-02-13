@@ -3,9 +3,9 @@ import math
 import requests
 
 
-# =====================================================
+
 # ROUTING SERVICE
-# =====================================================
+
 
 class RoutingService:
     """
@@ -40,9 +40,9 @@ class RoutingService:
         return response.json()
 
 
-# =====================================================
+
 # FUEL OPTIMIZER
-# =====================================================
+
 
 class FuelOptimizer:
     """
@@ -54,9 +54,9 @@ class FuelOptimizer:
         self.csv_path = csv_path
         self.fuel_data = self._load_fuel_data()
 
-    # ----------------------------------------
+   
     # Load Fuel Data
-    # ----------------------------------------
+   
 
     def _load_fuel_data(self):
         data = []
@@ -80,9 +80,9 @@ class FuelOptimizer:
 
         return data
 
-    # ----------------------------------------
+    
     # Haversine Distance (miles)
-    # ----------------------------------------
+    
 
     def _haversine(self, lat1, lon1, lat2, lon2):
         R = 3958.8
@@ -100,9 +100,9 @@ class FuelOptimizer:
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
         return R * c
 
-    # ----------------------------------------
+    
     # Find coordinate at X miles along route
-    # ----------------------------------------
+   
 
     def _coordinate_at_distance(self, route_coordinates, target_miles):
         accumulated = 0
@@ -119,9 +119,9 @@ class FuelOptimizer:
 
         return route_coordinates[-1]
 
-    # ----------------------------------------
+  
     # Nearby stations
-    # ----------------------------------------
+  
 
     def _nearby_stations(self, lon, lat, buffer_miles=10):
         stations = []
@@ -139,9 +139,9 @@ class FuelOptimizer:
 
         return stations
 
-    # ----------------------------------------
+    
     # Main Optimization
-    # ----------------------------------------
+    
 
     def find_stops(
         self,

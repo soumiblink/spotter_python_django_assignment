@@ -23,7 +23,7 @@ export default function App() {
   setResult(null);
 
   try {
-    // Convert "lng,lat" string → [lng, lat]
+    
     const startCoords = form.start.split(",").map((val) => Number(val.trim()));
     const endCoords = form.end.split(",").map((val) => Number(val.trim()));
 
@@ -59,7 +59,9 @@ export default function App() {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
+
         {/* Header */}
+
         <div style={styles.header}>
           <div style={styles.iconWrapper}>
             <svg
@@ -83,6 +85,7 @@ export default function App() {
         </div>
 
         {/* Form */}
+
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.inputGroup}>
             <label style={styles.label}>
@@ -177,6 +180,7 @@ export default function App() {
         </form>
 
         {/* Error Message */}
+
         {error && (
           <div style={styles.errorCard}>
             <svg
@@ -198,6 +202,7 @@ export default function App() {
         )}
 
         {/* Results */}
+
         {result && (
           <div style={styles.resultsCard}>
             <h2 style={styles.resultsTitle}>Route Summary</h2>
@@ -494,7 +499,7 @@ const styles = {
   },
 };
 
-// Add keyframe animation for spinner
+
 const styleSheet = document.styleSheets[0];
 styleSheet.insertRule(
   `
